@@ -7,6 +7,13 @@ Current public URL: <https://matijazezelj.github.io/packets-and-regrets/>
 
 Planned canonical URL: <https://blog.zezelj.org> (Cloudflare Pages)
 
+## Published content
+
+- [The Lab](https://matijazezelj.github.io/packets-and-regrets/lab/) — public-safe architecture and operating model
+- [What Actually Runs in the Home Lab](https://matijazezelj.github.io/packets-and-regrets/posts/what-runs-in-the-home-lab/)
+- [Why the Lab Is Boring on Purpose](https://matijazezelj.github.io/packets-and-regrets/posts/why-the-lab-is-boring-on-purpose/)
+- [Prometheus on NFS: Healthy Until It Wasn't](https://matijazezelj.github.io/packets-and-regrets/posts/prometheus-on-nfs-healthy-until-it-wasnt/)
+
 ## Local development
 
 Requires Hugo Extended 0.164.0 or newer.

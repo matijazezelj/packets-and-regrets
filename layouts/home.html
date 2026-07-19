@@ -24,8 +24,29 @@
   </div>
 </section>
 
+<section class="lab-preview">
+  <div class="section-heading">
+    <div><span class="section-index">02</span><h2>Inside the lab</h2></div>
+    <a href="{{ "lab/" | relURL }}">Explore the architecture →</a>
+  </div>
+  <div class="lab-callout">
+    <div>
+      <span class="eyebrow">Public-safe system map</span>
+      <h3>Two Docker hosts.<br>Several deliberate failure boundaries.</h3>
+      <p>The compute, DNS, ingress, database, storage, monitoring, and backup design—without publishing addresses or turning the site into reconnaissance.</p>
+      <a class="button secondary" href="{{ "lab/" | relURL }}">See how it fits together</a>
+    </div>
+    <dl class="lab-stats">
+      <div><dt>76</dt><dd>running containers</dd></div>
+      <div><dt>2</dt><dd>Docker hosts</dd></div>
+      <div><dt>3</dt><dd>Patroni nodes</dd></div>
+      <div><dt>2</dt><dd>recursive DNS paths</dd></div>
+    </dl>
+  </div>
+</section>
+
 <section class="principles">
-  <div class="section-heading"><div><span class="section-index">02</span><h2>Operating principles</h2></div></div>
+  <div class="section-heading"><div><span class="section-index">03</span><h2>Operating principles</h2></div></div>
   <div class="principle-grid">
     <article><span>01</span><h3>Healthy is not working</h3><p>A green container is an alibi, not evidence. Verify application behavior and committed data.</p></article>
     <article><span>02</span><h3>Root access has many spellings</h3><p>Docker sockets, automation tokens, and friendly dashboards all deserve the same suspicion.</p></article>

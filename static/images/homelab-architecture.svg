@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+  <title id="title">Logical architecture of the Packets and Regrets home lab</title>
+  <desc id="desc">A public-safe diagram showing segmented clients, redundant DNS, HAProxy ingress, two Docker hosts, PostgreSQL, NAS, local AI, Proxmox and backup layers. No addresses or reusable network details are included.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#202a25" stroke-width="1"/></pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#78877e"/></marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#9ecf63"/></marker>
+    <style>
+      text{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;fill:#e9eee9}.label{font-size:18px;font-weight:700}.sub{font-size:12px;fill:#9ba79f}.tiny{font-size:10px;fill:#78877e}.boundary{fill:#0d1210;stroke:#344139;stroke-width:2;stroke-dasharray:8 7}.box{fill:#151b18;stroke:#435047;stroke-width:2}.network{fill:#13201c;stroke:#9ecf63}.service{fill:#211a11;stroke:#f0a33a}.data{fill:#19172a;stroke:#a78bfa}.security{fill:#25151a;stroke:#ec6b62}.external{fill:#151b20;stroke:#7da5c9}.flow{fill:none;stroke:#78877e;stroke-width:2;marker-end:url(#arrow)}.dataflow{fill:none;stroke:#9ecf63;stroke-width:2;stroke-dasharray:7 5;marker-end:url(#arrow-green)}
+    </style>
+  </defs>
+  <rect width="1200" height="820" rx="18" fill="#0a0d0c"/><rect width="1200" height="820" rx="18" fill="url(#grid)"/>
+  <text x="42" y="48" class="label" fill="#f0a33a">PUBLIC-SAFE LOGICAL ARCHITECTURE</text><text x="42" y="69" class="sub">Roles and trust boundaries — deliberately no addresses, credentials, or physical port map</text>
+
+  <!-- Flows first so boxes mask crossings -->
+  <path class="flow" d="M190 145H300"/><path class="flow" d="M460 145H550"/><path class="flow" d="M710 145H810"/>
+  <path class="flow" d="M920 180V246H355V285"/><path class="flow" d="M920 180V246H790V285"/>
+  <path class="dataflow" d="M355 405V498H160V545"/><path class="dataflow" d="M355 405V498H430V545"/>
+  <path class="dataflow" d="M790 405V498H430V545"/><path class="dataflow" d="M790 405V498H700V545"/>
+  <path class="dataflow" d="M355 405V480H540V545"/>
+  <path class="dataflow" d="M355 405V468H970V545"/><path class="dataflow" d="M700 645V690H970V645"/>
+  <path class="flow" d="M255 645V705H430V645"/>
+
+  <rect x="40" y="92" width="150" height="106" rx="8" class="box external"/><text x="115" y="128" text-anchor="middle" class="label">Clients</text><text x="115" y="152" text-anchor="middle" class="sub">workstations · phones</text><text x="115" y="172" text-anchor="middle" class="sub">IoT · guests</text>
+  <rect x="300" y="105" width="160" height="80" rx="8" class="box security"/><text x="380" y="138" text-anchor="middle" class="label">Gateway</text><text x="380" y="160" text-anchor="middle" class="sub">VLANs · firewall · DHCP</text>
+  <rect x="550" y="96" width="160" height="98" rx="8" class="box network"/><text x="630" y="128" text-anchor="middle" class="label">DNS pair</text><text x="630" y="151" text-anchor="middle" class="sub">Pi-hole + Unbound ×2</text><text x="630" y="172" text-anchor="middle" class="tiny">recursive DNSSEC · one-way sync</text>
+  <rect x="810" y="105" width="220" height="80" rx="8" class="box service"/><text x="920" y="138" text-anchor="middle" class="label">HAProxy ingress</text><text x="920" y="160" text-anchor="middle" class="sub">TLS · host routing · DB leader routing</text>
+
+  <rect x="52" y="250" width="1050" height="190" rx="14" class="boundary"/><text x="73" y="277" class="tiny">APPLICATION PLANE</text>
+  <rect x="150" y="285" width="410" height="120" rx="9" class="box service"/><text x="175" y="320" class="label">Main Docker host</text><text x="175" y="346" class="sub">productivity · media · Git · monitoring</text><text x="175" y="368" class="sub">automation · dashboards · secondary DNS</text><text x="175" y="389" class="tiny">61 running containers at publication snapshot</text>
+  <rect x="620" y="285" width="340" height="120" rx="9" class="box service"/><text x="645" y="320" class="label">Specialist Docker host</text><text x="645" y="346" class="sub">NVR + Coral · VPN-isolated downloads</text><text x="645" y="368" class="sub">primary DNS · compatibility database</text><text x="645" y="389" class="tiny">15 running containers at publication snapshot</text>
+
+  <rect x="52" y="515" width="1096" height="160" rx="14" class="boundary"/><text x="73" y="539" class="tiny">STATE AND PLATFORM PLANE</text>
+  <rect x="80" y="545" width="160" height="100" rx="8" class="box data"/><text x="160" y="579" text-anchor="middle" class="label">PostgreSQL</text><text x="160" y="602" text-anchor="middle" class="sub">3-node Patroni</text><text x="160" y="622" text-anchor="middle" class="tiny">leader selected by HAProxy</text>
+  <rect x="270" y="545" width="160" height="100" rx="8" class="box data"/><text x="350" y="579" text-anchor="middle" class="label">NAS</text><text x="350" y="602" text-anchor="middle" class="sub">media · documents</text><text x="350" y="622" text-anchor="middle" class="tiny">NFS + CIFS bulk storage</text>
+  <rect x="460" y="545" width="160" height="100" rx="8" class="box external"/><text x="540" y="579" text-anchor="middle" class="label">Local AI</text><text x="540" y="602" text-anchor="middle" class="sub">GPU VM · Ollama</text><text x="540" y="622" text-anchor="middle" class="tiny">private inference path</text>
+  <rect x="650" y="545" width="160" height="100" rx="8" class="box network"/><text x="730" y="579" text-anchor="middle" class="label">Proxmox</text><text x="730" y="602" text-anchor="middle" class="sub">VM + LXC cluster</text><text x="730" y="622" text-anchor="middle" class="tiny">compute and isolation</text>
+  <rect x="840" y="545" width="260" height="100" rx="8" class="box security"/><text x="970" y="579" text-anchor="middle" class="label">Backup layers</text><text x="970" y="602" text-anchor="middle" class="sub">pg_dump · restic · PBS RAIDZ2</text><text x="970" y="622" text-anchor="middle" class="tiny">plus off-host compressed stream mirror</text>
+
+  <rect x="52" y="716" width="1096" height="65" rx="8" fill="#101513" stroke="#2b3530"/><circle cx="80" cy="748" r="5" fill="#f0a33a"/><text x="96" y="752" class="tiny">request/control flow</text><line x1="250" y1="748" x2="294" y2="748" class="flow"/><circle cx="360" cy="748" r="5" fill="#9ecf63"/><text x="376" y="752" class="tiny">state/backup flow</text><line x1="520" y1="748" x2="564" y2="748" class="dataflow"/><text x="650" y="744" class="tiny">Local/clustered: database state · NAS: bulk data</text><text x="650" y="762" class="tiny">Legacy TSDB exception documented separately.</text>
+</svg>

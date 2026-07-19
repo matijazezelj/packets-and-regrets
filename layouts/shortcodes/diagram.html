@@ -1,0 +1,5 @@
+{{- $src := .Get "src" -}}
+<figure class="diagram">
+  <a href="{{ $src | relURL }}"><img src="{{ $src | relURL }}" alt="{{ .Get "alt" }}" loading="lazy" decoding="async"></a>
+  {{ with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
