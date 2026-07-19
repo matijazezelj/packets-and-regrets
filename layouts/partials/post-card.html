@@ -7,7 +7,7 @@
   <p>{{ .Description | default .Summary | plainify }}</p>
   {{ with .Params.tags }}
     <ul class="tag-list" aria-label="Tags">
-      {{ range . }}<li><a href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">{{ . }}</a></li>{{ end }}
+      {{ range . }}<li><a href="{{ (printf "tags/%s/" (. | urlize)) | relURL }}">{{ . }}</a></li>{{ end }}
     </ul>
   {{ end }}
   <a class="read-more" href="{{ .RelPermalink }}">Read the field note <span aria-hidden="true">→</span></a>

@@ -4,8 +4,8 @@
   <h1>Production habits.<br><em>Home-lab consequences.</em></h1>
   <p class="hero-copy">Architecture notes, failure reports, security trade-offs, and exact fixes from a home rack operated by a SecOps engineer who should know better.</p>
   <div class="hero-actions">
-    <a class="button primary" href="{{ "/posts/" | relURL }}">Read the incidents</a>
-    <a class="button secondary" href="{{ "/about/" | relURL }}">Why this exists</a>
+    <a class="button primary" href="{{ "posts/" | relURL }}">Read the incidents</a>
+    <a class="button secondary" href="{{ "about/" | relURL }}">Why this exists</a>
   </div>
   <dl class="signal-strip">
     <div><dt>Approach</dt><dd>Evidence first</dd></div>
@@ -17,7 +17,7 @@
 <section class="latest-section">
   <div class="section-heading">
     <div><span class="section-index">01</span><h2>Latest field notes</h2></div>
-    <a href="{{ "/posts/" | relURL }}">View all writing →</a>
+    <a href="{{ "posts/" | relURL }}">View all writing →</a>
   </div>
   <div class="post-grid">
     {{ range first 4 (where site.RegularPages "Section" "posts") }}{{ partial "post-card.html" . }}{{ end }}

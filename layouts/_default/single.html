@@ -1,11 +1,11 @@
 {{ define "main" }}
 <article class="article">
   <header class="article-header">
-    <a class="back-link" href="{{ "/posts/" | relURL }}">← All field notes</a>
+    <a class="back-link" href="{{ "posts/" | relURL }}">← All field notes</a>
     <div class="article-meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 January 2006" }}</time><span>{{ .ReadingTime }} min read</span></div>
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p class="dek">{{ . }}</p>{{ end }}
-    {{ with .Params.tags }}<ul class="tag-list">{{ range . }}<li><a href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">{{ . }}</a></li>{{ end }}</ul>{{ end }}
+    {{ with .Params.tags }}<ul class="tag-list">{{ range . }}<li><a href="{{ (printf "tags/%s/" (. | urlize)) | relURL }}">{{ . }}</a></li>{{ end }}</ul>{{ end }}
   </header>
   <div class="prose">{{ .Content }}</div>
   <footer class="article-footer">

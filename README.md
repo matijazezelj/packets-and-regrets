@@ -3,7 +3,9 @@
 Public field notes from a SecOps engineer operating a home lab: architecture,
 incident reports, security trade-offs, and verified repairs.
 
-Production URL: <https://blog.zezelj.org>
+Current public URL: <https://matijazezelj.github.io/packets-and-regrets/>
+
+Planned canonical URL: <https://blog.zezelj.org> (Cloudflare Pages)
 
 ## Local development
 
