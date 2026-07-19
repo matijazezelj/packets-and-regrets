@@ -1,0 +1,35 @@
+baseURL = "https://blog.zezelj.org/"
+locale = "en-US"
+title = "Packets & Regrets"
+enableRobotsTXT = true
+enableGitInfo = false
+timeZone = "Europe/Zagreb"
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  author = "Matija Zezelj"
+  description = "Field notes from a SecOps engineer running production habits at home — architecture, incidents, security trade-offs, and the occasional regrettable shortcut."
+  tagline = "Production habits. Home-lab consequences."
+  github = "https://github.com/matijazezelj/packets-and-regrets"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+    style = "github-dark"
+  [markup.goldmark.renderer]
+    unsafe = false
+
+[services]
+  [services.rss]
+    limit = 20

@@ -1,0 +1,35 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="eyebrow"><span class="status-dot"></span>Systems nominal. Decisions questionable.</div>
+  <h1>Production habits.<br><em>Home-lab consequences.</em></h1>
+  <p class="hero-copy">Architecture notes, failure reports, security trade-offs, and exact fixes from a home rack operated by a SecOps engineer who should know better.</p>
+  <div class="hero-actions">
+    <a class="button primary" href="{{ "/posts/" | relURL }}">Read the incidents</a>
+    <a class="button secondary" href="{{ "/about/" | relURL }}">Why this exists</a>
+  </div>
+  <dl class="signal-strip">
+    <div><dt>Approach</dt><dd>Evidence first</dd></div>
+    <div><dt>Stack</dt><dd>Linux · Docker · ZFS</dd></div>
+    <div><dt>Bias</dt><dd>Simple &gt; clever</dd></div>
+  </dl>
+</section>
+
+<section class="latest-section">
+  <div class="section-heading">
+    <div><span class="section-index">01</span><h2>Latest field notes</h2></div>
+    <a href="{{ "/posts/" | relURL }}">View all writing →</a>
+  </div>
+  <div class="post-grid">
+    {{ range first 4 (where site.RegularPages "Section" "posts") }}{{ partial "post-card.html" . }}{{ end }}
+  </div>
+</section>
+
+<section class="principles">
+  <div class="section-heading"><div><span class="section-index">02</span><h2>Operating principles</h2></div></div>
+  <div class="principle-grid">
+    <article><span>01</span><h3>Healthy is not working</h3><p>A green container is an alibi, not evidence. Verify application behavior and committed data.</p></article>
+    <article><span>02</span><h3>Root access has many spellings</h3><p>Docker sockets, automation tokens, and friendly dashboards all deserve the same suspicion.</p></article>
+    <article><span>03</span><h3>Write down the regret</h3><p>The useful lesson is usually the decision that looked reasonable five minutes before the incident.</p></article>
+  </div>
+</section>
+{{ end }}

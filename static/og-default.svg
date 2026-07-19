@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0d0c"/>
+  <path d="M0 1h1200M0 629h1200M1 0v630M1199 0v630" stroke="#2b3530"/>
+  <circle cx="1070" cy="80" r="210" fill="#f0a33a" opacity=".06"/>
+  <circle cx="120" cy="580" r="250" fill="#9ecf63" opacity=".05"/>
+  <text x="90" y="110" fill="#9ecf63" font-family="monospace" font-size="23" letter-spacing="4">FIELD NOTES FROM THE HOME RACK</text>
+  <text x="85" y="300" fill="#e9eee9" font-family="Arial, sans-serif" font-size="92" font-weight="800" letter-spacing="-5">Packets &amp;</text>
+  <text x="85" y="405" fill="#f0a33a" font-family="Arial, sans-serif" font-size="92" font-weight="800" letter-spacing="-5">Regrets</text>
+  <text x="90" y="505" fill="#9ba79f" font-family="monospace" font-size="26">Production habits. Home-lab consequences.</text>
+  <rect x="90" y="555" width="170" height="5" fill="#f0a33a"/><rect x="270" y="555" width="65" height="5" fill="#9ecf63"/>
+</svg>

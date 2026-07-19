@@ -1,0 +1,29 @@
+name: Validate site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+      - uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3.2.1
+        with:
+          hugo-version: "0.164.0"
+          extended: true
+      - name: Build production site
+        run: hugo --gc --minify --printPathWarnings --printUnusedTemplates
+      - name: Reject accidental private addressing
+        run: |
+          if grep -RInE '192\.168\.|10\.[0-9]+\.|172\.(1[6-9]|2[0-9]|3[01])\.' content static; then
+            echo "Private address found in public content" >&2
+            exit 1
+          fi
