@@ -12,6 +12,7 @@ Planned canonical URL: <https://blog.zezelj.org> (Cloudflare Pages)
 - [The Lab](https://matijazezelj.github.io/packets-and-regrets/lab/) — public-safe architecture and operating model
 - [What Actually Runs in the Home Lab](https://matijazezelj.github.io/packets-and-regrets/posts/what-runs-in-the-home-lab/)
 - [Why the Lab Is Boring on Purpose](https://matijazezelj.github.io/packets-and-regrets/posts/why-the-lab-is-boring-on-purpose/)
+- [The Website Was New. The CSS Was Four Months Old.](https://matijazezelj.github.io/packets-and-regrets/posts/the-website-was-new-the-css-was-four-months-old/) — immutable CDN caching and asset-byte verification
 - [Prometheus on NFS: Healthy Until It Wasn't](https://matijazezelj.github.io/packets-and-regrets/posts/prometheus-on-nfs-healthy-until-it-wasnt/)
 
 ## Local development
