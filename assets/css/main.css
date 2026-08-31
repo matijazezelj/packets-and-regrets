@@ -137,6 +137,7 @@ a:hover { color: var(--orange); }
 .prose h2::before { content: "# "; color: var(--orange); font-family: var(--mono); }
 .prose h3 { margin-top: 2.3rem; font-size: 1.35rem; }
 .prose p, .prose li { color: #c7d0ca; }
+.prose img { display: block; max-width: 100%; height: auto; }
 .prose strong { color: var(--text); }
 .prose a { color: var(--green); }
 .prose blockquote { border-left: 3px solid var(--orange); background: var(--orange-soft); padding: 1rem 1.25rem; color: var(--text); }

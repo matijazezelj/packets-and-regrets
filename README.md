@@ -14,6 +14,7 @@ Planned canonical URL: <https://blog.zezelj.org> (Cloudflare Pages)
 - [Why the Lab Is Boring on Purpose](https://matijazezelj.github.io/packets-and-regrets/posts/why-the-lab-is-boring-on-purpose/)
 - [The Website Was New. The CSS Was Four Months Old.](https://matijazezelj.github.io/packets-and-regrets/posts/the-website-was-new-the-css-was-four-months-old/) — immutable CDN caching and asset-byte verification
 - [Prometheus on NFS: Healthy Until It Wasn't](https://matijazezelj.github.io/packets-and-regrets/posts/prometheus-on-nfs-healthy-until-it-wasnt/)
+- [I Built the Cloud Audit SIEM I Kept Wishing Existed](https://matijazezelj.github.io/packets-and-regrets/posts/i-built-the-cloud-audit-siem-i-kept-wishing-existed/) — CAIB architecture, benchmarks, failure testing, and release-candidate boundaries
 
 ## Local development
 
