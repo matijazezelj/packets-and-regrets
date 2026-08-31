@@ -8,3 +8,6 @@
 
 /*.xml
   Content-Type: application/xml; charset=utf-8
+
+/css/*
+  Cache-Control: public, max-age=31536000, immutable

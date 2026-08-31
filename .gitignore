@@ -1,4 +1,6 @@
 /public/
 /resources/_gen/
+/node_modules/
+/.wrangler/
 .hugo_build.lock
 .DS_Store
