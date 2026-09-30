@@ -15,6 +15,7 @@ Planned canonical URL: <https://blog.zezelj.org> (Cloudflare Pages)
 - [The Website Was New. The CSS Was Four Months Old.](https://matijazezelj.github.io/packets-and-regrets/posts/the-website-was-new-the-css-was-four-months-old/) — immutable CDN caching and asset-byte verification
 - [Prometheus on NFS: Healthy Until It Wasn't](https://matijazezelj.github.io/packets-and-regrets/posts/prometheus-on-nfs-healthy-until-it-wasnt/)
 - [I Built the Cloud Audit SIEM I Kept Wishing Existed](https://matijazezelj.github.io/packets-and-regrets/posts/i-built-the-cloud-audit-siem-i-kept-wishing-existed/) — CAIB architecture, benchmarks, failure testing, and release-candidate boundaries
+- [My Inventory Tool Filed a Complaint About Its Own Artwork](https://matijazezelj.github.io/packets-and-regrets/posts/my-inventory-tool-filed-a-complaint-about-its-own-artwork/) — source-of-truth inventory, honest "accurate" labels, and no invented data
 
 ## Local development
 
