@@ -1,7 +1,7 @@
 ---
 title: "I Gave My Network Gear a Voice. 99% of What It Said Was One Complaint."
 description: "Shipping UniFi syslog into SIB (VictoriaLogs + Grafana), proving nothing was dropped, and finding out that almost every error was the same access-point chore."
-date: 2026-09-30T18:00:00+02:00
+date: 2026-09-30T12:30:00+02:00
 draft: false
 categories: ["Build Notes"]
 tags: ["SIB", "UniFi", "Syslog", "VictoriaLogs", "Grafana", "Observability", "Detection Engineering"]
