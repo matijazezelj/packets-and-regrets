@@ -17,6 +17,7 @@
   <footer class="article-footer">
     <p><strong>Found a mistake?</strong> Good. Open an issue; accurate beats authoritative-looking.</p>
     <a href="{{ site.Params.github }}/issues">Report it →</a>
+    {{ if eq .Section "posts" }}<p class="subscribe"><strong>Liked it?</strong> There's a new one most weeks. <a href="{{ "index.xml" | relURL }}">Subscribe via RSS →</a></p>{{ end }}
   </footer>
 </article>
 {{ end }}
