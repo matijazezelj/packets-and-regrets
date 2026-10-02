@@ -15,6 +15,16 @@ So I built a sandbox. One VM, two cores, 8 GB of RAM, **deliberately not in the 
 
 The stack: k3s with flannel, kube-proxy and the built-in network policy turned off, and [Cilium](https://cilium.io/) doing all three jobs instead. I didn't pick Cilium for the apps. I picked it for [Hubble](https://github.com/cilium/hubble), because I wanted to see what flow-level network telemetry looks like when it lands in the same SIEM as everything else. The apps were the excuse. The packets were the point.
 
+## "Didn't you leave Kubernetes?"
+
+Yes. Loudly. In writing. With a whole post called [Why the Lab Is Boring on Purpose](/posts/why-the-lab-is-boring-on-purpose/), in which I explained that a family photo library does not need a control plane and that I was done optimizing for the number of CNCF logos in my diagram. I stand by every word. Production here is still Compose, HAProxy and shell scripts, and it will stay that way until somebody gives me a reason that isn't "ooh, shiny."
+
+But "boring on purpose" was a rule about *production*, not a vow of poverty. Those are different things, and I'm allowed to know the difference. The thing I left was running family-critical services on a platform that made every small question a distributed-systems question. A sandbox that nobody depends on, with no backups and a rebuild-from-git policy, can't do that to me. If it dies, I lose an afternoon and some pride, and I was going to lose the pride anyway.
+
+And the world doesn't wait for my lab to be comfortable. Kubernetes is where a huge amount of modern infrastructure lives, and a security person who has only ever read about it is working from the brochure. Cilium, eBPF flow logs and network policy are not things you learn by reading a blog post and nodding. They're things you learn by building the victim, building the attacker and watching the bouncer's clipboard fill up. You can't have opinions about a technology you've only held at arm's length. That's not expertise, that's a LinkedIn post.
+
+So that's the deal I made with myself: **boring where it counts, curious where it's cheap.** The photos stay on Compose. The experiments get a VM I'm happy to set on fire. There's a type of guy who announces he "doesn't do" a whole technology, as if abstaining were a personality. I don't want to be that guy about Kubernetes. I just want it nowhere near my photos.
+
 ## Hubble at idle is a firehose of nothing
 
 Turned on flow export, went to get coffee. Came back to an *idle* cluster, a couple of test pods doing absolutely nothing, producing about **21 flows per second**.
