@@ -3,6 +3,13 @@
   "name": "packets-and-regrets",
   "compatibility_date": "2026-08-31",
   "workers_dev": false,
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "persist": true
+    }
+  },
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page",
