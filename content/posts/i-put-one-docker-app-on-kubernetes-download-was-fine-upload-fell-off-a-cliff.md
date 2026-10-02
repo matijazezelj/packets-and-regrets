@@ -81,19 +81,31 @@ Download: fine. Upload: fell off a cliff. The curve looks like a transfer that s
 
 I tested one direction and declared them identical. That's not a result. That's a gap in the test wearing a result's jacket. My claim had exactly as much evidence as I'd collected, which was **half**. You can't grade your own homework with half the questions missing and then act surprised when someone else checks the back of the book.
 
-I don't know the cause yet. Three suspects, in the order I'd bet:
+So I went hop by hop, and this time I sent bytes in the direction that was actually broken.
 
-- An MTU or fragmentation problem on the overlay tunnel, which wrecks big request bodies and leaves downloads alone.
-- Request-body handling in one of the two proxies in front of it.
-- The kube-proxy replacement treating client-to-pod traffic differently.
+First, rule out the usual suspect. MTU was 1500 end to end and don't-fragment pings were clean. Not it. Then real POST bodies at three sizes through each layer. 1 MB and 8 MB: perfect everywhere. 30 MB: the upload through the load balancer reached the app about 17 MB in and then just *stopped*. The Docker copy took all 30 without blinking.
 
-The plan is boring on purpose: upload straight to the pod, then to the ingress, then through the load balancer, and see which hop breaks. There will be a follow-up when I know. I'd rather publish the open question than invent a tidy ending. Tidy endings are how you get a post that's fiction.
+Two things I'd like to have known an hour earlier. A 50 MB upload returned `413` on **both** copies, which is just the speed test's own body limit, and a red herring that cost me ten minutes of feeling clever. And from a different machine, the same 30 MB went through the ingress in full. A failure that depends on who's asking is a race, which is exactly why one curl from one box fooled me the first time.
+
+Here's what I think is happening, and I'm labelling it inference because I did not attach a debugger to a reverse proxy to prove it. The speed test's nginx answers every upload with an instant, cheerful 200 without reading the body. Talking to it directly, that's fine. Put a Go reverse proxy in front and the proxy sees a response arrive while the upload is still in flight, decides the conversation is over, and hangs up with the body unread. The client sees an upload that quietly stops mid-sentence. The Docker copy has no such proxy in front, so nothing ever hung up on anyone.
+
+The fix is one object: a buffering middleware on the ingress, so the proxy reads the whole body before forwarding it. The evidence it's the right one is boring and solid: the truncation reproduced on demand before, and doesn't now. Full 30 MB, every run. Then, because curl already lied to me once, the actual browser, back to back in the same session:
+
+| | Download | Upload |
+|---|---|---|
+| Docker copy | 2432.4 Mbit/s | 2184.5 Mbit/s |
+| Kubernetes copy, after the fix | 901.3 Mbit/s | **1927.2 Mbit/s** |
+
+Upload went from 6.3 to 1927, and the curve is flat instead of dying. The cliff is gone.
+
+It ends with a smaller mystery, which is the good kind. The Kubernetes download is less than half the Docker one, with a ragged curve. I haven't measured why. My bet is a two-core VM doing a lot of work for two extra hops, but that's a bet, not a result, and I've been burned by those today.
 
 ## What I'd tell someone considering it
 
 - **The apps are the easy part.** A dozen lines of compose turned into about fifty of YAML, and none of it was hard. Just *more*.
 - **Secrets are the missing piece.** My Docker side has a proper encrypted-secrets workflow. The cluster had a Secret I made by hand. Anything that matters needs a real answer there first, and "I made it by hand" isn't one.
 - **Routing is a new place to break.** Every app needs a hostname rule at the load balancer. The old `*-k8s` catch-all from a previous cluster pointed at a machine that no longer exists, and nothing complained. A lighthouse in the desert, still faithfully pointing at the sea.
+- **A proxy in front changes how apps behave.** An app that never reads its request body works fine until something in the middle takes that personally. Test every direction, not just the easy one.
 - **The payoff is visibility, not features.** Rolling updates, declared state in git and flow-level telemetry are real. Everything else compose already did, with fewer moving parts and fewer meetings.
 
 I kept the Docker copies as production. The cluster stays as a sandbox, which is the correct job for something that taught me seven ways to be wrong in a single afternoon.
