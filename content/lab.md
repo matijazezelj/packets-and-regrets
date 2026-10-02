@@ -5,20 +5,20 @@ description: "A public-safe map of the architecture, operating model, and design
 
 This is the stable overview behind the incident reports: enough architecture to explain the engineering, without publishing a reconnaissance pack disguised as documentation.
 
-{{< diagram src="images/homelab-architecture.svg" alt="Logical home-lab architecture showing segmented clients, redundant DNS, HAProxy, two Docker hosts, PostgreSQL, NAS, local AI, Proxmox, and backup layers" caption="Logical roles and trust boundaries. Addresses, camera topology, firewall rules, and management endpoints are deliberately omitted." >}}
+{{< diagram src="images/homelab-architecture.svg" alt="Logical home-lab architecture showing segmented clients, redundant DNS, HAProxy, two Docker hosts, PostgreSQL, NAS, security telemetry, Proxmox, and backup layers" caption="Logical roles and trust boundaries. Addresses, camera topology, firewall rules, and management endpoints are deliberately omitted." >}}
 
 ## At a glance
 
 | Layer | Current shape |
 |---|---|
-| Compute | Six Proxmox nodes running purpose-specific VMs and LXCs |
-| Application runtime | Two Docker VMs, 76 running containers at the publication snapshot |
+| Compute | Four clustered Proxmox nodes running purpose-specific VMs and LXCs |
+| Application runtime | Two Docker VMs, 81 running containers (October 2026 snapshot), plus a throwaway single-node k3s sandbox |
 | Ingress | One HAProxy LXC for TLS and host-based routing |
 | Databases | Three-node PostgreSQL/Patroni cluster, plus one compatibility PG14 instance |
 | DNS | Two Pi-hole instances, each with its own recursive Unbound resolver |
 | Storage | Local disks for databases and mutable app state; NAS for media and bulk documents |
 | Backups | Nightly database dumps, restic, Proxmox Backup Server on RAIDZ2, and an off-host stream mirror |
-| Private AI | Ollama on a GPU VM; selected document and alert workflows stay on the LAN |
+| Security telemetry | [SIB](https://github.com/matijazezelj/sib): Falco on every host, UniFi syslog, and sandbox network flows, all in VictoriaLogs with Grafana on top |
 
 ## The request path
 

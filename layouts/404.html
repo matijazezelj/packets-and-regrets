@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section class="hero">
+  <span class="eyebrow">Error 404 · Packet dropped</span>
+  <h1>That page <em>doesn't exist.</em></h1>
+  <p class="hero-copy">The link is wrong, the post moved, or I fat-fingered a slug. Statistically it was me. The request reached the server, the server looked everywhere, and came back with nothing, which is also how most of my incident reports start.</p>
+  <div class="hero-actions">
+    <a class="button primary" href="{{ "posts/" | relURL }}">Read the field notes</a>
+    <a class="button" href="{{ "/" | relURL }}">Back to the rack</a>
+  </div>
+</section>
+<section>
+  <span class="eyebrow">Maybe you wanted one of these</span>
+  <div class="post-grid">
+    {{ range first 3 (where site.RegularPages "Section" "posts") }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}

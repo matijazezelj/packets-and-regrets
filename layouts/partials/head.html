@@ -14,8 +14,17 @@
 <meta property="og:description" content="{{ $description | plainify }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ site.Title }}">
-<meta property="og:image" content="{{ "og-default.svg" | absURL }}">
+{{- $og := "og-default.png" -}}
+{{- if and .IsPage (eq .Section "posts") -}}{{- $cand := printf "og/%s.png" .File.ContentBaseName -}}{{- if fileExists (printf "static/%s" $cand) }}{{ $og = $cand }}{{ end -}}{{- end }}
+<meta property="og:image" content="{{ $og | absURL }}">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ .Title | default site.Title }}, Packets &amp; Regrets">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title | default site.Title }}">
+<meta name="twitter:description" content="{{ $description | plainify }}">
+<meta name="twitter:image" content="{{ $og | absURL }}">
 {{ if .IsPage }}<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
 {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">

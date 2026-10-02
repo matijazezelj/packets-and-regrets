@@ -1,12 +1,14 @@
 ---
 title: "What Actually Runs in the Home Lab"
-description: "A curated inventory of the services behind 76 running containers—what each group does, why it exists, and which pieces are temporary."
+description: "A curated inventory of the services behind 81 running containers—what each group does, why it exists, and which pieces are temporary."
 date: 2026-07-19T20:20:00+02:00
 categories: ["Lab Notes"]
 tags: ["Docker", "Self-hosting", "Services", "Observability", "Home Lab"]
 ---
 
 At the publication snapshot, the two Docker hosts were running **76 containers**: 61 on the general application host and 15 on the specialist host.
+
+> **Update, 2 October 2026:** the count is now **81** (60 and 21). The lab changed more than the number did. n8n is gone (see below), the GPU VM that ran Ollama is gone, and the cluster is down to four Proxmox nodes. The rest of this inventory is left as originally written, with corrections marked where they matter.
 
 That is not 76 independent products. Sidecars, exporters, databases, browser workers, VPN helpers, and document processors inflate the container count. This inventory groups them by the job they perform instead of pretending every YAML service deserves its own logo wall.
 
@@ -42,7 +44,7 @@ Two AI companions are currently present: the established Paperless-AI integratio
 
 ### Karakeep
 
-Karakeep is the durable inbox for links worth keeping. A headless browser captures pages, Meilisearch indexes them, and selected AI tagging/summarization runs against local Ollama rather than sending the archive to a hosted model.
+Karakeep is the durable inbox for links worth keeping. A headless browser captures pages, Meilisearch indexes them, (AI tagging was originally wired to a local Ollama; that GPU VM has since been retired, so the archive is searchable but no longer machine-summarized).
 
 ### Miniflux
 
@@ -60,9 +62,11 @@ Vaultwarden provides the Bitwarden-compatible server used by family clients. Dat
 
 Gitea holds the active homelab repository and other personal Git projects. MkDocs renders the private operational wiki from repository-backed Markdown. The wiki remains private; public articles are rewritten and sanitized in this separate blog repository.
 
-### n8n
+### n8n (retired)
 
-n8n provides non-critical workflow glue: health snapshots, Telegram summaries, and alert enrichment. It is deliberately not the monitoring source of truth. Gatus and Prometheus decide what happened; n8n may collect context and make the message less useless.
+*Update, 2 October 2026: removed.* n8n was meant to provide non-critical workflow glue: health snapshots, Telegram summaries, and alert enrichment. It was deliberately not the monitoring source of truth. Gatus and Prometheus decide what happened, and Gatus alerts go straight to the agent that handles them.
+
+Before deleting it I checked its database: **six workflows, zero executions, ever.** It had spent its entire life being healthy-looking and unemployed, and it fell over with a stuck connection pool the first time anyone looked. Rule five below ("someone actually uses it") has veto power, and it used it. I kept a final database dump, dropped the database and role, and removed the containers, routes, checks and dashboard tile.
 
 ## Photos, audio, and media
 
@@ -161,11 +165,10 @@ These are the easiest services to retire when usage disappears. Self-hosting doe
 
 The wider lab also includes:
 
-- six Proxmox nodes;
+- four clustered Proxmox nodes (two more retired along the way, one of them powered off to save electricity);
 - a three-node Patroni PostgreSQL cluster;
 - Proxmox Backup Server with a five-disk RAIDZ2 datastore;
 - a NAS for bulk application data and backup mirrors;
-- a GPU VM running Ollama;
 - Home Assistant OS;
 - a Jellyfin LXC;
 - the HAProxy ingress LXC;
@@ -185,4 +188,4 @@ A service should satisfy at least one of these:
 
 Number five has veto power over many beautifully engineered answers.
 
-The inventory will change. That is why this is a dated snapshot rather than a claim that 76 containers represent a personal achievement. The useful question is not “how many services can run?” It is “how many failures can one person still understand?”
+The inventory will change. That is why this is a dated snapshot rather than a claim that 81 containers represent a personal achievement. The useful question is not “how many services can run?” It is “how many failures can one person still understand?”
