@@ -94,7 +94,7 @@ def main():
         if p.name.startswith("_") or (want and p.stem not in want):
             continue
         f = front(p)
-        if f["draft"]:
+        if f["draft"] and not want:   # naming a slug explicitly renders its card even while it is still a draft
             continue
         shot(card(f["title"], f["desc"], f["tags"], f["date"]), OUT / f"{p.stem}.png")
         print(f"og/{p.stem}.png")
