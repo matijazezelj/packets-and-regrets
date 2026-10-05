@@ -50,6 +50,8 @@ The lab has two Docker hosts: a main one with roughly forty services, and a seco
 
 The scanner needs to read the list of containers and images on each Docker host. The lazy way is to mount the Docker socket into the scanner, which is root on the host. Instead, each Docker host runs a small read-only proxy that answers "list containers" and "read images" and refuses everything else, and only the tools VM can reach it. I tested both directions: reads succeed, and a request to create a container comes back as 403.
 
+Pointing the scanners at remote hosts is one line in the top-level `xib/.env`: `DOCKER_HOSTS=main=tcp://<proxy-host>:2375,second=tcp://<proxy-host>:2375`, comma-separated `name=url` pairs. Put it there, not in `vib/.env` or `cib/.env`; with `make up-safe` the umbrella value wins and the per-tool one is quietly ignored. The name becomes a `host` label, so every dashboard can filter by host.
+
 Around that:
 
 - The dashboards sit behind the same reverse proxy and wildcard certificate as everything else.

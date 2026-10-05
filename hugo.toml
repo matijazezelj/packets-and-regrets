@@ -12,6 +12,7 @@ timeZone = "Europe/Zagreb"
   author = "Matija Zezelj"
   description = "Field notes from a SecOps engineer running production habits at home — architecture, incidents, security trade-offs, and the occasional regrettable shortcut."
   tagline = "Production habits. Home-lab consequences."
+  runningContainers = 81  # keep in sync with the dated count in posts/what-runs-in-the-home-lab.md and lab.md
   github = "https://github.com/matijazezelj/packets-and-regrets"
 
 [taxonomies]
