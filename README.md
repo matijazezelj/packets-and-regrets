@@ -18,6 +18,7 @@ Planned canonical URL: <https://blog.zezelj.org> (Cloudflare Pages)
 - [My Inventory Tool Filed a Complaint About Its Own Artwork](https://matijazezelj.github.io/packets-and-regrets/posts/my-inventory-tool-filed-a-complaint-about-its-own-artwork/) — source-of-truth inventory, honest "accurate" labels, and no invented data
 - [I Gave My Network Gear a Voice. 99% of What It Said Was One Complaint.](https://matijazezelj.github.io/packets-and-regrets/posts/i-gave-my-network-gear-a-voice-and-it-would-not-stop-talking/) — UniFi syslog into [SIB](https://github.com/matijazezelj/sib), pipeline reconciliation, and separating proven noise
 - [I Put One Docker App on Kubernetes. Download Was Fine. Upload Fell Off a Cliff.](https://matijazezelj.github.io/packets-and-regrets/posts/i-put-one-docker-app-on-kubernetes-download-was-fine-upload-fell-off-a-cliff/) — k3s + Cilium + Hubble flows into [SIB](https://github.com/matijazezelj/sib), four apps moved over, and a speed test that caught half a test
+- [From 12,669 Findings to a To-Do List: Security Tooling for a Home Lab](https://matijazezelj.github.io/packets-and-regrets/posts/one-compose-command-seven-security-tools/)
 
 ## Local development
 
