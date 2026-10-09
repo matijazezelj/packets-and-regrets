@@ -1,6 +1,6 @@
 ---
 title: "My Coding Agent Has a Shell and My SSH Keys. So I Built It a Leash."
-description: "I put a leash on my coding agent. Then I had it audited, it found holes in my leash, and I fixed them before telling you."
+description: "A local model swaps names, places and companies for placeholders before a prompt leaves, plus an OS sandbox. I audited it and fixed four holes."
 date: 2026-10-09T16:27:48+02:00
 draft: false
 categories: ["Build Notes"]
@@ -23,7 +23,40 @@ You run `hib` in a project folder and you get a coding agent in your terminal. R
 
 The README says it doesn't extract your logins or call private endpoints. That's the README's claim and I only checked part of it. What I did confirm is the environment: a child process gets a short allow-list of variables (`PATH`, `HOME`, `TERM` and friends) plus whatever that account needs. Your shell's `AWS_SECRET_ACCESS_KEY` doesn't tag along by accident.
 
-That's the boring part. The interesting part is the leash.
+That's the boring part. The interesting part is what happens to your prompt on the way out, and then the leash.
+
+## The model never meets your names
+
+If I had to pick one reason to run HIB, it's this one, and it's the one I nearly left out of my own post.
+
+You type a normal sentence to a cloud model. "Ana Kovač from Zeleni Val d.o.o. in Osijek says the export job fails for her team." (Invented, all of it.) You have just handed a vendor a person, a company and a town, to answer a question about a cron job. Nobody decided that. It's just what the sentence contained, and you were busy.
+
+HIB puts a guard in front of every prompt. First, pattern matching catches the easy stuff: emails, keys, IP addresses, usernames, home paths and any terms you've told it to care about. That part is what you'd expect. The part I like is the second layer, the one regexes can't do: **a local named-entity-recognition model that finds the people, places and organisations in your prose.**
+
+How it works, from the source:
+
+- **It runs on your machine.** A multilingual BERT-based NER model, quantised, loaded in-process. You download it once (about 180 MB), it's pinned to an exact revision so a model update can't quietly change what gets detected, and then it needs no network. No second cloud service looking at your text in order to protect it from the first one. That would be a bit rich.
+- **It replaces, it doesn't delete.** Each finding becomes a stable placeholder in the shape `[HIB3fa2-PERSON-1]`. The same value always gets the same token within a conversation, so the model can still reason: "PERSON-1 reported it, ORG-1 owns the job". IPs on the same /24 share a network label, so it can still see that two hosts are neighbours without learning the addresses. The prompt carries a note telling the model to refer to values by their placeholder and never ask about the hidden ones.
+- **Two rules cover what the model misses:** companies with legal suffixes (d.o.o., d.d., GmbH, Ltd, Inc and friends) and street addresses.
+- **Then the answer is un-scrambled on the way back.** The real values are restored in the streamed reply, including when a placeholder gets split across chunks (the restorer holds back a partial token until it knows what it is). The mapping is sealed at rest with AES-256-GCM. You read a sentence with real names. The vendor saw `PERSON-1`.
+
+So the model above sees something shaped like "[…-PERSON-1] from […-ORG-1] in […-PLACE-1] says the export job fails for her team", and you see Ana, the company and the town in the answer. It still fixes the cron job. It never needed to know who Ana was. Nobody ever does, in this line of work, and yet we keep telling the cloud.
+
+It's built to be paranoid in the right direction:
+
+- **It fails closed.** If the model is missing or errors, the request waits for your approval and is not sent as-is. Inputs over 200 KB are refused rather than half-scanned.
+- **It skips code.** Fenced blocks, inline code and code-looking lines are left alone, and a built-in list stops it treating Redis or Grafana as a company. You can add your own ignore terms.
+- **It copes with lazy typing.** All-lowercase chat ("luka novak from infobip") gets a second pass on a title-cased copy, because the model is case-sensitive and I type like a man in a hurry.
+- **It's multilingual,** which matters here, because half my names have a háček. The README's measurements are 24 of 24 and 19 of 20 entities on two small hand-labelled sets in English, Croatian, Serbian and German, about 20 ms per typical prompt, and roughly 600 MB of memory once loaded. Those are the README's numbers. I did not reproduce them.
+
+And now the part where I'm supposed to be the adult:
+
+- **It's a model.** It will miss things, and the README says so: it adds to the rules, it doesn't replace them. 19 of 20 means someone's name is the 20th.
+- **Context can still identify people.** "The only bank in Osijek" doesn't contain a name and still points at one. The tokens preserve relationships on purpose, so the model can reason, and that's a trade you're making.
+- **In agent mode, the guard covers your prompt, not the files the CLI reads itself.** The README is explicit about that. For code that's the point of the folder boundary, the sandbox and the approval prompts, which is the next section. The NER guard is the front door for what *you* say, and it covers the router, `hib ask -f` tables, the classifier's excerpt and prompts in sensitive folders.
+- **The receipt keeps the redacted text,** so whatever the guard missed is in the egress log too.
+
+I read this code. I did not run the detector or the model. If you want to know whether it catches *your* names, run `hib guard ner setup` and try it on your own data, not on my word.
 
 ## The leash
 
@@ -78,7 +111,7 @@ This is the section I'd want if I were deciding whether to trust it.
 - **The CLIs' own file tools aren't sandboxed.** Read and Edit are held to the folder by permission rules and HIB's prompts. If those prompts are wrong, as finding 1 was, nothing else catches it.
 - **Your own CLI config still applies.** Broad allow rules in your `settings.json` bypass HIB's prompts, and commands you've listed as sandbox exclusions run outside the sandbox.
 - **Codex reads can't be gated.** It runs read-only commands without asking. For a sensitive folder, use a Claude account.
-- **Name detection is a model.** The optional local model scored 24 of 24 and 19 of 20 entities on two small hand-labelled sets. Encouraging, small, and it fails closed, which is the correct way to fail.
+- **Name detection is a model.** See above: it adds to the rules, it does not replace them.
 - **Retention and training are the vendor's business.** A harness can't change what a subscription does with your data.
 
 ## If you want to copy the ideas
