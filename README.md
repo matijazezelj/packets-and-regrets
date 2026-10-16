@@ -18,6 +18,7 @@ Public URL: <https://blog.zezelj.org>
 - [I Put One Docker App on Kubernetes. Download Was Fine. Upload Fell Off a Cliff.](https://blog.zezelj.org/posts/i-put-one-docker-app-on-kubernetes-download-was-fine-upload-fell-off-a-cliff/) — k3s + Cilium + Hubble flows into [SIB](https://github.com/matijazezelj/sib), four apps moved over, and a speed test that caught half a test
 - [From 12,669 Findings to a To-Do List: Security Tooling for a Home Lab](https://blog.zezelj.org/posts/one-compose-command-seven-security-tools/)
 - [My Coding Agent Has a Shell and My SSH Keys. So I Built It a Leash.](https://blog.zezelj.org/posts/my-coding-agent-has-a-shell-and-my-ssh-keys/)
+- [Nothing Was Red, and Three Things Were Dead](https://blog.zezelj.org/posts/nothing-was-red-and-three-things-were-dead/)
 
 ## Local development
 

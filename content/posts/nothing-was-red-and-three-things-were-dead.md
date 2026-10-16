@@ -1,13 +1,13 @@
 ---
 title: "Nothing Was Red, and Three Things Were Dead"
-description: "A power monitor dead for 22 days, a UPS feed missing for 8, a sync failing 1,216 times. Every dashboard green. Monitoring 'up' is not monitoring 'working'."
+description: "A power monitor dead for 22 days, a UPS feed missing for 8, a sync failing 1,216 times. The one alert that fired was muted until 2099."
 date: 2026-10-16T15:55:00+02:00
-draft: true
+draft: false
 categories: ["Incident Reports"]
 tags: ["Observability", "Systemd", "NUT", "Monitoring", "Homelab"]
 ---
 
-I run Prometheus. I run Gatus. I have dashboards with so many green tiles that it looks like a golf course. And in the last three weeks, three separate things in my lab were quietly dead, and not one of those tiles turned red.
+I run Prometheus. I run Gatus. I have dashboards with so many green tiles that it looks like a golf course. And in the last three weeks, three separate things in my lab were quietly dead. Two of them never turned a single tile red. The third one did go red, for eight straight days, and I had personally made sure nobody would hear about it.
 
 One was the thing that's supposed to shut my servers down cleanly when the power goes out. It was dead for 22 days.
 
@@ -42,6 +42,10 @@ What happened next is a chain of polite failures:
 
 So for **8 days** I had no UPS data. No battery charge, no load, no runtime estimate. And the graph panels? They just... showed nothing. A blank panel is not a red panel. It's a panel that has quietly stopped talking to you.
 
+Except this time something *was* red. Gatus has two UPS checks, "on mains power" and "battery above 30%", and both failed for the whole eight days. Gatus did its job. The thing that turns a red Gatus check into a message on my phone is a small watchdog script, and that script has an ignore list. On September 12, in the middle of the earlier NUT mess, both UPS checks went onto it. As a temporary mute. With an expiry date of **2099**.
+
+I found that while fact-checking this post, which is a sentence I'd like to never write again. Think about what it means: "UPS on mains power" was the one check whose entire job is to tell me the power went out, and it had been switched off for a month. A real power cut would have produced a red tile and total silence. The mute is gone now. The expiry is the joke; the month without the one alarm that matters isn't.
+
 Notice the pair. Regret 1 means the nodes weren't *listening* to the UPS. Regret 2 means I wasn't either. For a week I had a UPS, three nodes and a monitoring stack, and they were all politely not talking to each other.
 
 ## Regret 3: the sync that failed 1,216 times
@@ -70,7 +74,7 @@ And check this out, because it's the same lesson one more time: the script's own
 | What died | What the machine saw | Why nothing alerted |
 |---|---|---|
 | power monitor | clean exit, code 0 | not "failed", so no failed-unit signal |
-| UPS data feed | one dependency unhealthy, one never started | a missing metric is not a firing alert |
+| UPS data feed | two Gatus checks red, exporter gone | the alert was muted "temporarily", until 2099 |
 | inventory sync | failed unit, every 15 min | failed state in a place nobody watches |
 
 My monitoring was built around one question: **is the thing up?** HTTP 200, port open, container healthy. That's a good question for a web server. It's a bad question for a job. A sync job isn't "up." It runs, or it doesn't. A monitor that exits 0 isn't "down," it's *absent*, and absence has no metric.
@@ -101,7 +105,7 @@ First thing it taught me was humility: I immediately had to add a short ignore l
 - **A blank graph is a finding.** If a panel goes empty, that's a failure of the exporter, not a quiet day. Alert on `absent()` for things that must always report.
 - **Your dry-run mode is not a test.** Mine skipped every write. Tell yourself which half of the code path it doesn't exercise.
 - **Test the recovery, not just the fix.** I killed the unit and watched it come back. That takes a minute and it's the only proof that counts.
-- **Write the reason next to every ignore.** Future you is a stranger with a mute button.
+- **Write the reason next to every ignore, and give it an expiry you will actually live to see.** Future you is a stranger with a mute button. Past me apparently thought 2099 counted as temporary.
 
 ## What I don't know yet
 
@@ -110,4 +114,4 @@ First thing it taught me was humility: I immediately had to add a short ignore l
 - **I don't know why the UPS setting flipped.** It might be a firmware update, a controller change, or me. The evidence only shows that it was on and then it wasn't.
 - **The 22 days and 8 days come from my own notes and commit history**, not from a graph I can pull up now. The 1,216 failed runs come straight from the journal, counted this week.
 
-The uncomfortable bit isn't any single bug. It's that all three of them were boring, ordinary failures that a decently built system should have *shouted* about, and the thing that was supposed to shout was waiting for a crash. Something that quietly stops is not a crash. It's a resignation, and I hadn't given my lab a way to notice people leaving.
+The uncomfortable bit isn't any single bug. It's that all three of them were boring, ordinary failures that a decently built system should have *shouted* about. Two times the thing that was supposed to shout was waiting for a crash. The third time it was shouting, and I'd put a pillow over it. Something that quietly stops is not a crash. It's a resignation, and I hadn't given my lab a way to notice people leaving.
