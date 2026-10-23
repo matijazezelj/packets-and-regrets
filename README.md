@@ -21,6 +21,8 @@ Public URL: <https://blog.zezelj.org>
 - [Nothing Was Red, and Three Things Were Dead](https://blog.zezelj.org/posts/nothing-was-red-and-three-things-were-dead/)
 - [My Watchdog Restarted My NVR 141 Times. It Was Guessing.](https://blog.zezelj.org/posts/my-watchdog-restarted-my-nvr-141-times/) — motion-only retention, unproven recovery actions, and an intervention counter without an alert
 
+- [BSD, a Separate VLAN, and an Agent That Has to Show Its Work](https://blog.zezelj.org/posts/bsd-a-separate-vlan-and-an-agent-that-has-to-show-its-work/) — workload-driven BSD migrations, honest isolation boundaries, and evidence-bound issue approval/acceptance
+
 ## Local development
 
 Requires Hugo Extended 0.164.0 or newer.

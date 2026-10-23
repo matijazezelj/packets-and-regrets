@@ -2,7 +2,7 @@
 title: "BSD, a Separate VLAN, and an Agent That Has to Show Its Work"
 description: "I moved small services to BSD, gave the agent its own network segment, and replaced vague approval with evidence and numbered plans."
 date: 2026-10-23T16:40:00+02:00
-draft: true
+draft: false
 categories: ["Build Notes"]
 tags: ["BSD", "Networking", "AI Agents", "Change Control", "Homelab"]
 ---
