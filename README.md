@@ -19,6 +19,7 @@ Public URL: <https://blog.zezelj.org>
 - [From 12,669 Findings to a To-Do List: Security Tooling for a Home Lab](https://blog.zezelj.org/posts/one-compose-command-seven-security-tools/)
 - [My Coding Agent Has a Shell and My SSH Keys. So I Built It a Leash.](https://blog.zezelj.org/posts/my-coding-agent-has-a-shell-and-my-ssh-keys/)
 - [Nothing Was Red, and Three Things Were Dead](https://blog.zezelj.org/posts/nothing-was-red-and-three-things-were-dead/)
+- [My Watchdog Restarted My NVR 141 Times. It Was Guessing.](https://blog.zezelj.org/posts/my-watchdog-restarted-my-nvr-141-times/) — motion-only retention, unproven recovery actions, and an intervention counter without an alert
 
 ## Local development
 
