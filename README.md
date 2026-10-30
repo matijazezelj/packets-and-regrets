@@ -23,6 +23,8 @@ Public URL: <https://blog.zezelj.org>
 
 - [BSD, a Separate VLAN, and an Agent That Has to Show Its Work](https://blog.zezelj.org/posts/bsd-a-separate-vlan-and-an-agent-that-has-to-show-its-work/) — workload-driven BSD migrations, honest isolation boundaries, and evidence-bound issue approval/acceptance
 
+- [I Stopped Being My Homelab's Sysadmin. Now I Manage One.](https://blog.zezelj.org/posts/i-stopped-being-my-homelabs-sysadmin-now-i-manage-one/) — delegated execution, retained judgment, evidence-bound acceptance, and no invented productivity multiplier
+
 ## Local development
 
 Requires Hugo Extended 0.164.0 or newer.

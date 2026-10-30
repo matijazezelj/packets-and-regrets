@@ -2,7 +2,7 @@
 title: "I Stopped Being My Homelab's Sysadmin. Now I Manage One."
 description: "Twenty-five years of experience, an agent that can execute, and the inconvenient discovery that delegation still needs a grown-up."
 date: 2026-10-30T16:00:00+01:00
-draft: true
+draft: false
 categories: ["Build Notes"]
 tags: ["AI Agents", "Operations", "Change Control", "Homelab"]
 ---
