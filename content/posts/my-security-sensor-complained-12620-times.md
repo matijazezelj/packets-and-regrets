@@ -54,7 +54,7 @@ Here's what bugs me. The system was *not* silent. The sensor was complaining at 
 
 There were also three lines of `"http" output timeout, all output channels are blocked`, two of them on the 21st and one on the 29th. That's Falco telling you its output queue is full and it's dropping its own alerts. Three lines. In a pile of twelve thousand. If you had grepped for "error" you'd have drowned. If you had grepped for "blocked" you'd have found three lines and a very expensive realization.
 
-Detection tooling has a built-in humility problem: **the failure of the transport looks like the absence of events.** A quiet security log is exactly what a healthy, boring lab looks like. The dashboards were serene and I can't tell you what I thought of them; I can't tell you what I thought of the dashboards during those weeks, but nothing in my setup would have told me they were wrong.
+Detection tooling has a built-in humility problem: **the failure of the transport looks like the absence of events.** A quiet security log is exactly what a healthy, boring lab looks like. The dashboards were serene, and nothing in my setup would have told me they were wrong.
 
 I built a smoke detector, wired it to a speaker in the next building, and then admired how quiet the house was.
 
