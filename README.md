@@ -25,6 +25,8 @@ Public URL: <https://blog.zezelj.org>
 
 - [I Stopped Being My Homelab's Sysadmin. Now I Manage One.](https://blog.zezelj.org/posts/i-stopped-being-my-homelabs-sysadmin-now-i-manage-one/) — delegated execution, retained judgment, evidence-bound acceptance, and no invented productivity multiplier
 
+- [My Dashboards Showed 58 Things That Didn't Exist](https://blog.zezelj.org/posts/my-dashboards-showed-58-things-that-did-not-exist/) — absent versus unavailable entities, guarded dashboard cleanup, and a fresh ghost three days later
+
 ## Local development
 
 Requires Hugo Extended 0.164.0 or newer.
