@@ -2,7 +2,7 @@
 title: "My Coding Agent Has a Leash. Now It Leaves Receipts."
 description: "HIB now guards log streams and records security decisions. SIB can collect those receipts and watch agent processes separately."
 date: 2026-11-13T16:02:00+01:00
-draft: true
+draft: false
 categories: ["Build Notes"]
 tags: ["AI", "Security", "HIB", "SIB"]
 ---
@@ -17,7 +17,7 @@ HIB now has a streaming log filter and a structured security event log. SIB can 
 
 One side says what it allowed. The other can see what happened. That's a better conversation than asking the agent whether the agent behaved itself.
 
-**Scope, before the sales pitch gets ahead of the evidence:** I read both repositories at their current main revisions, ran 74 targeted HIB tests and 38 SIB generator tests, and exercised HIB's filter with synthetic input. I did not deploy the new HIB-to-SIB collection path or run the privileged Falco runtime test for this article. Those are different acceptance gates, not inconvenient footnotes.
+**Scope, before the sales pitch gets ahead of the evidence:** I read both repositories at the source revisions linked below, ran 74 targeted HIB tests and 38 SIB generator tests, and exercised HIB's filter with synthetic input. I did not deploy the new HIB-to-SIB collection path or run the privileged Falco runtime test for this article. Those are different acceptance gates, not inconvenient footnotes.
 
 ## 1. HIB can guard a stream, not just a conversation
 

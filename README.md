@@ -7,6 +7,8 @@ Public URL: <https://blog.zezelj.org>
 
 ## Published content
 
+- [My Coding Agent Has a Leash. Now It Leaves Receipts.](https://blog.zezelj.org/posts/my-coding-agent-now-leaves-receipts/) — HIB streaming pseudonymisation and decision logs, SIB's agent monitoring, and explicit tested-versus-deployed boundaries
+
 - [The Lab](https://blog.zezelj.org/lab/) — public-safe architecture and operating model
 - [What Actually Runs in the Home Lab](https://blog.zezelj.org/posts/what-runs-in-the-home-lab/)
 - [Why the Lab Is Boring on Purpose](https://blog.zezelj.org/posts/why-the-lab-is-boring-on-purpose/)
